@@ -1,0 +1,183 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <title>Candidate Login - College Voting Portal</title>
+    <meta content="width=device-width, initial-scale=1.0" name="viewport">
+    <meta content="Free HTML Templates" name="keywords">
+    <meta content="Free HTML Templates" name="description">
+
+    <!-- Favicon -->
+    <link href="{% static 'img/favicon.ico' %}" rel="icon">
+
+    <!-- Google Web Fonts -->
+    <link rel="preconnect" href="https://fonts.gstatic.com">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
+
+    <!-- Font Awesome -->
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.10.0/css/all.min.css" rel="stylesheet">
+
+    <!-- Libraries Stylesheet -->
+    <link href="{% static 'lib/owlcarousel/assets/owl.carousel.min.css' %}" rel="stylesheet">
+
+    <!-- Customized Bootstrap Stylesheet -->
+    <link href="{% static 'css/style.css' %}" rel="stylesheet">
+
+    <style>
+        /* Customizing the dropdown appearance */
+        select {
+            width: 100%;
+            padding: 10px;
+            font-size: 16px;
+            border-radius: 5px;
+            border: 1px solid #ddd;
+            box-sizing: border-box;
+            background-color: #f8f9fa;
+            color: #333;
+        }
+
+        select:focus {
+            border-color: #007bff;
+            outline: none;
+            box-shadow: 0 0 5px rgba(0, 123, 255, 0.5);
+        }
+
+        /* Optional: Customizing the label for better alignment */
+        label {
+            font-size: 16px;
+            margin-bottom: 5px;
+        }
+
+        .form-container select {
+            margin-bottom: 15px;
+        }
+
+        /* Alert Styles */
+        .alert {
+            padding: 10px;
+            background-color: #f8d7da;
+            color: #721c24;
+            border-radius: 5px;
+            margin-bottom: 20px;
+        }
+
+        .alert strong {
+            font-weight: bold;
+        }
+
+        /* Custom Styles for Candidate Login */
+        .form-container {
+            padding-top: 50px;
+        }
+
+        .form-container .container {
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        .login-box {
+            border: 1px solid #ddd;
+            padding: 30px;
+            border-radius: 10px;
+            background-color: #f8f9fa;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+
+        .login-box h2 {
+            text-align: center;
+            margin-bottom: 20px;
+            font-size: 24px;
+            color: #333;
+        }
+
+        .login-box .form-group {
+            margin-bottom: 20px;
+        }
+
+        .login-box .form-control {
+            padding: 12px;
+            font-size: 16px;
+            border-radius: 5px;
+            border: 1px solid #ddd;
+            width: 100%;
+            box-sizing: border-box;
+        }
+
+        .login-box .form-group a {
+            display: flex;
+            text-align: center;
+            color: #ff8400;
+            font-size: 14px;
+            margin-top: 10px;
+        }
+
+        .btn-primary {
+            background-color:#ff8400;
+            color: white;
+            padding: 12px 0;
+            font-size: 16px;
+            border-radius: 5px;
+            width: 100%;
+            border: none;
+            cursor: pointer;
+        }
+
+        .btn-primary:hover {
+            background-color: #0056b3;
+        }
+    </style>
+</head>
+
+<body>
+
+    <!-- Login Form Section -->
+    <section class="form-container py-5">
+        <div class="container">
+            <div class="row justify-content-center">
+                <div class="col-lg-6">
+                    <!-- Login Box -->
+                    <div class="login-box">
+                        <h2>Candidate Login</h2>
+                        <form method="POST" action="{% url 'candidatelogin' %}">
+                            {% csrf_token %}
+                            <fieldset>
+                                
+                                
+                                <!-- Candidate ID Field -->
+                                <div class="form-group">
+                                    <label for="candidateid"><span class="req">* </span>Email: </label>
+                                    <input class="form-control" type="text" name="candidateid" id="candidateid" placeholder="Enter your email" required />
+                                </div>
+
+                                <!-- Password Field -->
+                                <div class="form-group">
+                                    <label for="password"><span class="req">* </span>Password:</label>
+                                    <input required name="password" type="password" class="form-control" minlength="4" maxlength="16" id="password" placeholder="Enter your password" />
+                                </div>
+
+                                <!-- Submit Button -->
+                                <div class="form-group text-center">
+                                    <input class="btn-primary" type="submit" value="Login">
+                                </div>
+
+                                <!-- Forgot Password Link -->
+                                <div class="form-group text-center">
+                                    <a href="/changepassword/">Forgot Password?</a>
+                                </div>
+                            </fieldset>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- JavaScript Libraries -->
+    <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.bundle.min.js"></script>
+
+</body>
+
+</html>

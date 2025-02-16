@@ -1,0 +1,235 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Feed | Social Platform</title>
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" rel="stylesheet">
+    <link href="{% static 'img/favicon.ico' %}" rel="icon">
+
+    <!-- Google Web Fonts -->
+    <link rel="preconnect" href="https://fonts.gstatic.com">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet"> 
+
+    <!-- Font Awesome -->
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.10.0/css/all.min.css" rel="stylesheet">
+
+    <!-- Libraries Stylesheet -->
+    <link href="{% static 'lib/owlcarousel/assets/owl.carousel.min.css' %}" rel="stylesheet">
+
+    <!-- Customized Bootstrap Stylesheet -->
+    <link href="{% static 'css/style.css' %}" rel="stylesheet">
+    <style>
+        body {
+            background-color: #f7f9fb;
+            color: #1a202c;
+        }
+        .post-container {
+            background-color: #ffffff;
+            border-radius: 10px;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+            padding: 1.5rem;
+            max-width: 600px;
+            max-height: 800px;
+            transition: transform 0.3s, box-shadow 0.3s;
+        }
+        .post-container:hover {
+            transform: scale(1.02);
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.15);
+        }
+        .action-button {
+            color: #4a5568;
+            transition: color 0.3s, background-color 0.3s;
+            border-radius: 5px;
+            padding: 6px 14px;
+        }
+        .action-button:hover {
+            background-color: #edf2f7;
+            color: #1a202c;
+        }
+        .comments-section {
+            display: none;
+            border-top: 1px solid #e2e8f0;
+            padding-top: 1rem;
+        }
+        .no-comments {
+            color: #718096;
+            font-style: italic;
+        }
+        .navbar {
+            background-color: #f6e1bc; /* Greyish color */
+            padding: 10px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .navbar .navbar-brand {
+            color: rgb(221, 141, 2);
+            font-size: 24px;
+            font-weight: bold;
+            text-transform: uppercase;
+        }
+
+        .header-buttons {
+            display: flex;
+            justify-content: flex-end; /* Aligns buttons to the right */
+        }
+
+        .navbar a {
+            color: #fff;
+            font-size: 18px;
+            margin: 0 10px;
+            text-decoration: none;
+            padding: 8px 20px;
+            border-radius: 5px;
+            transition: background-color 0.3s ease;
+}
+
+.navbar a:hover {
+    background-color: rgb(221, 141, 2);
+    color: white;
+}
+    </style>
+</head>
+<body class="font-sans antialiased">
+
+    <div class="navbar">
+        <h1 class="m-0"><span class="text-primary">ELECT</span>-ED</h1>
+        <div class="header-buttons">
+            <a class="btn btn-primary py-2 px-4 ml-auto d-none d-lg-block" href="/candidatehome/">Home</a>
+            <a class="btn btn-primary py-2 px-4 ml-auto d-none d-lg-block" href="/logout/">Log Out</a>
+        </div>
+    </div>
+<div class="container mx-auto px-4 py-8 max-w-2xl">
+    <div class="container mx-auto px-4 py-8 max-w-2xl">
+        <!-- Back Button -->
+        
+    
+        <h2 class="text-3xl font-bold mb-6">Candidate Posts</h2>
+    
+
+    {% for post in posts %}
+    <div class="post-container ">
+        <div class="flex items-center ">
+            <div class="flex-shrink-0 mr-3">
+                {% if post.user.profilepic %}
+                    <img src="{{ post.user.profilepic.url }}" alt="Profile Picture" class="w-12 h-12 rounded-full border-2 border-gray-300">
+                {% else %}
+                    <div class="w-12 h-12 rounded-full bg-gray-300 flex items-center justify-center">
+                        <i class="fas fa-user text-gray-600"></i>
+                    </div>
+                {% endif %}
+            </div>
+            <div>
+                <p class="font-semibold text-lg">{{ post.user.name }}</p>
+                <p class="text-gray-500 text-sm">{{ post.created_at|date:"F j, Y, g:i a" }}</p>
+            </div>
+        </div>
+
+        <p class="text-base text-gray-700 ">{{ post.description }}</p>
+
+        {% if post.post_pic %}
+            {% if post.is_video %}
+                <!-- Video Display -->
+                <video controls class="w-full rounded-lg mb-4">
+                    <source src="{{ post.post_pic.url }}" type="video/mp4">
+                    Your browser does not support the video tag.
+                </video>
+                <a href="{{ post.post_pic.url }}" download="video.mp4" class="text-blue-600 underline font-semibold">
+                    <i class="fas fa-download"></i> Download Video
+                </a>
+            {% elif post.is_pdf %}
+                <!-- PDF Display -->
+                <div class="mb-4">
+                    <a href="{{ post.post_pic.url }}" target="_blank" download="document.pdf" class="text-blue-600 underline font-semibold">
+                        <i class="fas fa-download"></i> Download PDF
+                    </a>
+                </div>
+            {% else %}
+                <!-- Image Display -->
+                <img src="{{ post.post_pic.url }}" alt="Post Media" class="">
+                <a href="{{ post.post_pic.url }}" download="image.jpg" class="text-blue-600 underline font-semibold">
+                    <i class="fas fa-download"></i> Download Image
+                </a>
+            {% endif %}
+        {% endif %}
+
+      <!--  <div class="flex items-center justify-between mb-4 pt-2 border-t border-gray-200">
+            <div class="text-gray-600">
+                <span>{{ post.likes_count }} </span> • 
+                <span>{{ post.comment_count }} </span>
+            </div>
+        </div> -->
+
+        <div class="flex items-center space-x-2">
+            <form action="" method="POST">
+                {% csrf_token %}
+              <!--  <button type="submit" class="action-button w-full flex items-center justify-center">
+                    <i class="{% if post in liked_posts %}fas{% else %}far{% endif %} fa-thumbs-up text-blue-700 mr-2"></i> Like
+                </button>
+            </form>
+            <button class="action-button w-full flex items-center justify-center toggle-comments" data-target="#comments-{{ post.id }}">
+                <i class="far fa-comment text-blue-700 mr-2"></i> Comment
+            </button> -->
+        </div>
+
+        <div id="comments-{{ post.id }}" class="comments-section mt-4">
+            <h3 class="font-semibold text-lg mb-2">Comments</h3>
+            <ul class="space-y-4 mb-4">
+                {% if post.comment_count == 0 %}
+                    <li class="no-comments">No comments yet</li>
+                {% else %}
+                    {% for comment in post.commentsectionmodel_set.all %}
+                        <p>{{comment}}</p>
+                        <li class="flex items-start">
+                            <div class="flex-shrink-0 mr-3">
+                                {% if comment.user.image %}
+                                    <img src="{{ comment.user.image.url }}" alt="Profile Picture" class="w-8 h-8 rounded-full">
+                                {% else %}
+                                    <div class="w-8 h-8 rounded-full bg-gray-300 flex items-center justify-center">
+                                        <i class="fas fa-user text-gray-600 text-xs"></i>
+                                    </div>
+                                {% endif %}
+                            </div>
+                            <div class="flex-grow bg-gray-100 rounded-lg p-3">
+                                <p>hello</p>
+                                <p class="font-semibold text-sm">{{ comment.user.username }}</p>
+                                <p class="text-sm text-gray-800">{{ comment.comment }}</p>
+                                {% if comment.user == us %}
+                                    <a href="/comments_delete/{{ comment.id }}/" class="text-red-500 hover:underline text-xs">
+                                        <i class="fa-regular fa-trash-can"></i> Delete
+                                    </a>
+                                {% endif %}
+                            </div>
+                        </li>
+                    {% endfor %}
+                {% endif %}
+            </ul>
+            <form action="" method="POST" class="flex items-center">
+                {% csrf_token %}
+                <input type="text" name="comment" class="flex-grow bg-gray-100 border border-gray-300 rounded-full px-4 py-2 text-sm" placeholder="Add a comment...">
+                <button type="submit" class="ml-2 text-blue-600 font-semibold text-sm">Post</button>
+            </form>
+        </div>
+    </div>
+    {% endfor %}
+
+</div>
+
+<script>
+    document.addEventListener("DOMContentLoaded", () => {
+        document.querySelectorAll('.toggle-comments').forEach(button => {
+            button.addEventListener('click', () => {
+                const target = document.querySelector(button.getAttribute('data-target'));
+                if (target) {
+                    target.style.display = target.style.display === 'none' || target.style.display === '' ? 'block' : 'none';
+                }
+            });
+        });
+    });
+</script>
+</body>
+</html>

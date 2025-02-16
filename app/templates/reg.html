@@ -1,0 +1,173 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <title>ELECTED-A COLLEGE VOTING PORTAL</title>
+    <meta content="width=device-width, initial-scale=1.0" name="viewport">
+    <meta content="Free HTML Templates" name="keywords">
+    <meta content="Free HTML Templates" name="description">
+
+    <!-- Favicon -->
+    <link href="{% static 'img/favicon.ico' %}" rel="icon">
+
+    <!-- Google Web Fonts -->
+    <link rel="preconnect" href="https://fonts.gstatic.com">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
+
+    <!-- Font Awesome -->
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.10.0/css/all.min.css" rel="stylesheet">
+
+    <!-- Libraries Stylesheet -->
+    <link href="{% static 'lib/owlcarousel/assets/owl.carousel.min.css'%}" rel="stylesheet">
+
+    <!-- Customized Bootstrap Stylesheet -->
+    <link href="{% static 'css/style.css' %}" rel="stylesheet">
+
+    <style>
+        /* Customizing the dropdown appearance */
+        select {
+            width: 100%;
+            padding: 10px;
+            font-size: 16px;
+            border-radius: 5px;
+            border: 1px solid #ddd;
+            box-sizing: border-box;
+            background-color: #f8f9fa;
+            color: #333;
+        }
+
+        select:focus {
+            border-color: #007bff;
+            outline: none;
+            box-shadow: 0 0 5px rgba(0, 123, 255, 0.5);
+        }
+
+        /* Optional: Customizing the label for better alignment */
+        label {
+            font-size: 16px;
+            margin-bottom: 5px;
+        }
+
+        .form-container select {
+            margin-bottom: 15px;
+        }
+        
+        /* Flexbox for aligning heading and button on the same line */
+        .header-row {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            width: 100%;
+        }
+
+        .header-row h1 {
+            margin: 0;
+            font-size: 2.5rem;
+        }
+
+        .header-row .btn {
+            margin-left: auto; /* To push the button to the right */
+        }
+        
+    </style>
+</head>
+
+<body>
+
+    <!-- Registration Form Section -->
+   
+
+    <section class="form-container py-5">
+        <div class="container">
+            <div class="row justify-content-center">
+                <div class="col-lg-6">
+                    <!-- Registration Box -->
+                    <div class="border p-4 rounded shadow">
+                        <h2 class="text-center mb-4">Create an Account</h2>
+                        <form id="registrationForm" method="POST" action="{% url 'reg' %}">
+                            {% csrf_token %}
+                            <fieldset>
+                                {% if success %}
+                                <div class="alert alert-success">
+                                    Registration Successful!
+                                </div>
+                                {% endif %}
+                                <legend class="text-center">Registration <span class="req"><small>required *</small></span></legend>
+
+                                <div class="form-group">
+                                    <label for="Name"><span class="req">* </span>Name: </label>
+                                    <input required type="text" name="name" id="name" class="form-control" maxlength="28" placeholder="Enter your full name" />
+                                </div>
+
+                                <div class="form-group">
+                                    <label for="Phone no"><span class="req">* </span>Phone no: </label>
+                                    <input required class="form-control" type="text" name="phoneno" id="phone" />
+                                </div>
+
+                                <div class="form-group">
+                                    <label for="Email"><span class="req">* </span>Email: </label>
+                                    <input required class="form-control" type="email" name="email" id="email" />
+                                </div>
+
+                                <div class="form-group">
+                                    <label for="password"><span class="req">* </span>Password: </label>
+                                    <input required name="password" type="password" class="form-control" minlength="4" maxlength="16" id="pass1" />
+                                </div>
+
+                                <div class="form-group">
+                                    <label for="registerno"><span class="req">* </span>Register no: </label>
+                                    <input required class="form-control" type="text" name="registerno" id="registerno" />
+                                </div>
+
+                                <div class="form-group">
+                                    <label for="course"><span class="req">* </span>Course: </label>
+                                    <select id="course" name="course" required>
+                                        <option value="B Sc Computer Science">B Sc Computer Science</option>
+                                        <option value="B Sc Mathematics">B Sc Mathematics</option>
+                                        <option value="B Sc Biology">B Sc Biology</option>
+                                        <option value="B Sc Chemistry">B Sc Chemistry</option>
+                                        <option value="B Sc Physics">B Sc Physics</option>
+                                        <option value="BA Malayalam">BA Malayalam</option>
+                                        <option value="BA English">BA English</option>
+                                        <option value="BA Economics">BA Economics</option>
+                                    </select>
+                                </div>
+
+                                <div class="form-group">
+                                    <label for="department"><span class="req">* </span>Department: </label>
+                                    <select id="department" name="department" required>
+                                        <option value="Computer Science">Computer Science</option>
+                                        <option value="Mathematics">Mathematics</option>
+                                        <option value="Biology">Biology</option>
+                                        <option value="Chemistry">Chemistry</option>
+                                        <option value="Physics">Physics</option>
+                                        <option value="Malayalam">Malayalam</option>
+                                        <option value="English">English</option>
+                                        <option value="Economics">Economics</option>
+                                    </select>
+                                </div>
+
+                                <div class="form-group text-center">
+                                    <input class="btn btn-primary py-2 px-4" type="submit" value="Register" />
+                                </div>
+                               
+                            </fieldset>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Success Message -->
+    
+
+    <!-- JavaScript Libraries -->
+    <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.bundle.min.js"></script>
+
+</body>
+
+</html>

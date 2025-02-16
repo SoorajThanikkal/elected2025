@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Feed</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+</head>
+<body class="bg-gray-100 font-sans">
+    <!-- Navbar -->
+    <nav class="bg-white shadow sticky top-0 z-50">
+        <div class="max-w-6xl mx-auto px-4">
+            <div class="flex justify-between items-center py-4">
+                <h1 class="text-2xl font-bold text-gray-800">Your Feed</h1>
+                <div class="flex space-x-4">
+                    <a href="/home/" class="text-gray-600 hover:text-gray-800">
+                        <i class="fa fa-home text-xl"></i>
+                    </a>
+                    <a href="#" class="text-gray-600 hover:text-gray-800">
+                        <i class="fa fa-user text-xl"></i>
+                    </a>
+                    <a href="#" class="text-gray-600 hover:text-gray-800">
+                        <i class="fa fa-cog text-xl"></i>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Posts Container -->
+    <div class="max-w-6xl mx-auto mt-8 px-4 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+        {% for post in post %}
+        <!-- Post Card -->
+        <div class="bg-white rounded-lg shadow overflow-hidden h-[350px] w-[350px] mx-auto">
+            <!-- Post Header -->
+            <div class="flex items-center px-4 py-3 border-b border-gray-200">
+                <img src="{{ post.user.image.url }}" alt="User Profile" class="w-8 h-8 rounded-full">
+                <div class="ml-3">
+                    <p class="text-gray-800 font-medium text-sm">{{ post.user.email }}</p>
+                    <p class="text-xs text-gray-500">Posted on {{ post.created_at|date:"M d, Y" }}</p>
+                </div>
+            </div>
+
+            <!-- Post Content -->
+            <div class="h-44 flex items-center justify-center">
+                {% if post.file_type == 'image' %}
+                <img src="{{ post.post_pic.url }}" alt="Post Image" class="w-full h-full object-cover">
+                {% elif post.file_type == 'video' %}
+                <video controls class="w-full h-full object-cover">
+                    <source src="{{ post.post_pic.url }}" type="video/{{ post.post_pic.url|slice:'-3' }}">
+                    Your browser does not support the video tag.
+                </video>
+                {% elif post.file_type == 'pdf' %}
+                <a href="{{ post.post_pic.url }}" target="_blank" class="text-blue-500 hover:underline">
+                    View PDF
+                </a>
+                {% endif %}
+            </div>
+
+            <!-- Post Description -->
+            <div class="px-4 py-2">
+                <p class="text-gray-800 text-sm truncate">{{ post.description }}</p>
+            </div>
+
+            <!-- Post Actions -->
+            <div class="flex items-center justify-between px-4 py-2 bg-gray-50">
+                <div class="flex items-center space-x-3">
+                    <button onclick="toggleLike(this)" class="text-gray-600 hover:text-pink-500">
+                        <i class="fa fa-heart"></i>
+                    </button>
+                    <button class="text-gray-600 hover:text-blue-500">
+                        <i class="fa fa-comment"></i>
+                    </button>
+                    <button class="text-gray-600 hover:text-green-500">
+                        <i class="fa fa-share"></i>
+                    </button>
+                </div>
+                <div>
+                    <a href="{% url 'editepost' post.id %}" class="text-blue-500 hover:underline mr-3">Edit</a>
+                    <a href="{% url 'deletepost' post.id %}" class="text-red-500 hover:underline">Delete</a>
+                </div>
+            </div>
+        </div>
+        {% empty %}
+        <p class="text-center text-gray-600 mt-6">You haven't posted anything yet.</p>
+        {% endfor %}
+    </div>
+
+    <script>
+        function toggleLike(btn) {
+            const likeIcon = btn.querySelector('i');
+            const isLiked = likeIcon.classList.contains('liked');
+            if (isLiked) {
+                likeIcon.classList.remove('liked');
+                btn.classList.remove('text-pink-500');
+                btn.classList.add('text-gray-600');
+            } else {
+                likeIcon.classList.add('liked');
+                btn.classList.add('text-pink-500');
+                btn.classList.remove('text-gray-600');
+            }
+        }
+    </script>
+</body>
+</html>

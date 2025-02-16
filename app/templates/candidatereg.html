@@ -1,0 +1,254 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <title>ELECTED-A COLLEGE VOTING PORTAL</title>
+    <meta content="width=device-width, initial-scale=1.0" name="viewport">
+    <meta content="Free HTML Templates" name="keywords">
+    <meta content="Free HTML Templates" name="description">
+
+    <!-- Favicon -->
+    <link href="{% static 'img/favicon.ico' %}" rel="icon">
+
+    <!-- Google Web Fonts -->
+    <link rel="preconnect" href="https://fonts.gstatic.com">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
+
+    <!-- Font Awesome -->
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.10.0/css/all.min.css" rel="stylesheet">
+
+    <!-- Libraries Stylesheet -->
+    <link href="{% static 'lib/owlcarousel/assets/owl.carousel.min.css'%}" rel="stylesheet">
+
+    <!-- Customized Bootstrap Stylesheet -->
+    <link href="{% static 'css/style.css' %}" rel="stylesheet">
+
+    <style>
+        /* Customizing the dropdown appearance */
+        select {
+            width: 100%;
+            padding: 10px;
+            font-size: 16px;
+            border-radius: 5px;
+            border: 1px solid #ddd;
+            box-sizing: border-box;
+            background-color: #f8f9fa;
+            color: #333;
+        }
+
+        select:focus {
+            border-color: #007bff;
+            outline: none;
+            box-shadow: 0 0 5px rgba(0, 123, 255, 0.5);
+        }
+
+        /* Optional: Customizing the label for better alignment */
+        label {
+            font-size: 16px;
+            margin-bottom: 5px;
+        }
+
+        .form-container select {
+            margin-bottom: 15px;
+        }
+        
+        /* Flexbox for aligning heading and button on the same line */
+        .header-row {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            width: 100%;
+        }
+
+        .header-row h1 {
+            margin: 0;
+            font-size: 2.5rem;
+        }
+
+        .header-row .btn {
+            margin-left: auto; /* To push the button to the right */
+        }
+        .navbar {
+            background-color: #f6e1bc; /* Greyish color */
+            padding: 10px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .navbar .navbar-brand {
+            color: rgb(221, 141, 2);
+            font-size: 24px;
+            font-weight: bold;
+            text-transform: uppercase;
+        }
+
+        .header-buttons {
+            display: flex;
+            justify-content: flex-end; /* Aligns buttons to the right */
+        }
+
+        .navbar a {
+            color: #fff;
+            font-size: 18px;
+            margin: 0 10px;
+            text-decoration: none;
+            padding: 8px 20px;
+            border-radius: 5px;
+            transition: background-color 0.3s ease;
+}
+
+.navbar a:hover {
+    background-color: rgb(221, 141, 2);
+    color: white;
+}
+    </style>
+</head>
+
+<body>
+
+    <!-- Registration Form Section -->
+    <div class="navbar">
+        <h1 class="m-0"><span class="text-primary">ELECT</span>-ED</h1>
+        <div class="header-buttons">
+            <a class="btn btn-primary py-2 px-4 ml-auto d-none d-lg-block" href="/studenthome/">Home</a>
+            <a class="btn btn-primary py-2 px-4 ml-auto d-none d-lg-block" href="/logout/">Log Out</a>
+          
+        </div>
+    </div>
+
+    <section class="form-container py-5">
+        <div class="container">
+            <div class="row justify-content-center">
+                <div class="col-lg-6">
+                    <!-- Registration Box -->
+                    <div class="border p-4 rounded shadow">
+                        <h2 class="text-center mb-4">Nomnation Application</h2>
+                        <form id="registrationForm" method="POST" action="{% url 'candidatereg' %}">
+                            {% csrf_token %}
+                            <fieldset>
+                                {% if successful %}
+                                    <div class="alert alert-success">
+                                        {{ message }}
+                                    </div>
+                                {% elif message %}
+                                    <div class="alert alert-danger">
+                                        {{ message }}
+                                    </div>
+                                {% endif %}
+                                <legend class="text-center"><span class="req"><small></small></span></legend>
+
+                                <div class="form-group">
+                                    <label for="Name"><span class="req">* </span>Name: </label>
+                                    <input required type="text" name="name" id="name" class="form-control" maxlength="28" placeholder="Enter your full name" />
+                                </div>
+
+                                <div class="form-group">
+                                    <label for="Phone Number"><span class="req">* </span>Phone Number:</label>
+                                    <input class="form-control" type="text" name="phoneno" id="phone" required />
+                                </div>
+                
+                                <div class="form-group">
+                                    <label for="Email"><span class="req">* </span>Email: </label>
+                                    <input required name="email" type="email" class="form-control" id="email" />
+                                </div>
+                
+                                <div class="form-group">
+                                    <label for="Regno"><span class="req">* </span>Regno: </label>
+                                    <input required name="regno" type="text" class="form-control" id="txt" />
+                                </div>
+                
+                
+                                <div class="form-group">
+                                    <label for="Department"><span class="req">* </span>Department: </label>
+                                    <select id="department" name="department" required>
+                                        <option value="Computer Science">Computer Science</option>
+                                        <option value="Mathematics">Mathematics</option>
+                                        <option value="Biology">Biology</option>
+                                        <option value="Chemistry">Chemistry</option>
+                                        <option value="Physics">Physics</option>
+                                        <option value="Malayalam">Malayalam</option>
+                                        <option value="English">English</option>
+                                        <option value="Economics">Economics</option>
+                                    </select>
+                                </div>
+                
+                                <div class="form-group">
+                                    <label for="course"><span class="req">* </span>Course: </label>
+                                    <select id="course" name="course" required>
+                                        <option value="B Sc Computer Science">B Sc Computer Science</option>
+                                        <option value="B Sc Mathematics">B Sc Mathematics</option>
+                                        <option value="B Sc Biology">B Sc Biology</option>
+                                        <option value="B Sc Chemistry">B Sc Chemistry</option>
+                                        <option value="B Sc Physics">B Sc Physics</option>
+                                        <option value="BA Malayalam">BA Malayalam</option>
+                                        <option value="BA English">BA English</option>
+                                        <option value="BA Economics">BA Economics</option>
+                                    </select>
+                                </div>
+                
+                                <div class="form-group">
+                                    <label for="Year"><span class="req">* </span>Year of Study: </label>
+                                    <select id="year" name="year" required>
+                                        <option value="First year">First Year</option>
+                                        <option value="Second Year">Second Year</option>
+                                        <option value="Third Year">Third Year</option>
+                                        <option value="Fourth Year">Fourth Year</option>
+                                    </select>
+                                </div>
+                
+                                <div class="form-group">
+                                    <label for="Attendance"><span class="req">* </span>Attendance: </label>
+                                    <input required name="attendance" type="number" class="form-control" id="txt" />
+                                </div>
+                
+                                <div class="form-group">
+                                    <label for="Backlog"><span class="req">* </span>Standing Backlog: </label>
+                                    <input required name="backlog" type="number" class="form-control" id="txt" />
+                                </div>
+                                        
+                                 <div class="form-group">
+                                    <label for="position"><span class="req">* </span>position Being Nominated For: </label>
+                                    <select id="position" name="position" required>
+                                        <option value="Chairperson">Chairperson</option>
+                                        <option value=" Vice Chairperson"> Vice Chairperson</option>
+                                        <option value="General Secretary">General Secretary</option>
+                                        <option value="Joint Secretary ">Joint Secretary </option>
+                                        <option value="Fine Arts Secretary ">Fine Arts Secretary </option>
+                                        <option value="Student Editor">Student Editor</option>
+                                        <option value="UUC ">UUC </option>
+                                        </select>
+                                </div>
+                                <div class="form-group">
+                                    <label for="faculty_in_charge"><span class="req">* </span>Faculty In Charge: </label>
+                                    <select id="tutor_in_charge" name="tutor_in_charge" required class="form-control">
+                                        {% for faculty in faculties %}
+                                            <option value="{{ faculty.facultyid }}">{{ faculty.name }}</option>
+                                        {% endfor %}
+                                    </select>
+                                </div>
+
+                                <div class="form-group text-center">
+                                    <input class="btn btn-primary py-2 px-4" type="submit" value="Register" />
+                                </div>
+                               
+                            </fieldset>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Success Message -->
+    
+
+    <!-- JavaScript Libraries -->
+    <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.bundle.min.js"></script>
+
+</body>
+
+</html>

@@ -1,0 +1,181 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Nomination List</title>
+    <link href="{% static 'img/favicon.ico' %}" rel="icon">
+
+     <!-- Google Web Fonts -->
+     <link rel="preconnect" href="https://fonts.gstatic.com">
+     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet"> 
+ 
+     <!-- Font Awesome -->
+     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.10.0/css/all.min.css" rel="stylesheet">
+ 
+     <!-- Libraries Stylesheet -->
+     <link href="{% static 'lib/owlcarousel/assets/owl.carousel.min.css' %}" rel="stylesheet">
+ 
+     <!-- Customized Bootstrap Stylesheet -->
+     <link href="{% static 'css/style.css' %}" rel="stylesheet">
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+        }
+        .nomination {
+            margin-bottom: 20px;
+            padding: 10px;
+            border-bottom: 1px solid #ddd;
+        }
+        .nomination p {
+            margin: 5px 0;
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 20px;
+        }
+        th, td {
+            padding: 10px;
+            border: 1px solid #ddd;
+            text-align: left;
+        }
+        th {
+            background-color: rgb(221, 141, 2);
+            color: white;
+        }
+        td {
+            background-color: white;
+        }
+        button {
+            padding: 5px 10px;
+            font-size: 14px;
+            cursor: pointer;
+        }
+        .navbar {
+            background-color: #f6e1bc; /* Greyish color */
+            padding: 10px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .navbar .navbar-brand {
+            color: rgb(221, 141, 2);
+            font-size: 24px;
+            font-weight: bold;
+            text-transform: uppercase;
+        }
+
+        .header-buttons {
+            display: flex;
+            justify-content: flex-end; /* Aligns buttons to the right */
+        }
+
+        .navbar a {
+            color: #fff;
+            font-size: 18px;
+            margin: 0 10px;
+            text-decoration: none;
+            padding: 8px 20px;
+            border-radius: 5px;
+            transition: background-color 0.3s ease;
+}
+
+.navbar a:hover {
+    background-color: rgb(221, 141, 2);
+    color: white;
+}
+.reason-box {
+            display: none;
+            margin-top: 10px;
+        }
+    </style>
+
+
+    <script>
+        function toggleReasonBox(statusSelect) {
+            var reasonBox = document.getElementById('reason-box-' + statusSelect.dataset.id);
+            if (statusSelect.value === 'rejected') {
+                reasonBox.style.display = 'block';
+            } else {
+                reasonBox.style.display = 'none';
+            }
+        }
+    </script>
+</head>
+<body>
+    <div class="navbar">
+        <h1 class="m-0"><span class="text-primary">ELECT</span>-ED</h1>
+        <div class="header-buttons">
+            <a class="btn btn-primary py-2 px-4 ml-auto d-none d-lg-block" href="/facultyhome/">Home</a>
+            <a class="btn btn-primary py-2 px-4 ml-auto d-none d-lg-block" href="/logout/">Log Out</a>
+          
+        </div>
+    </div>
+    <h1>Nomination List</h1>
+
+    {% if user %}
+        <table>
+            <thead>
+                <tr>
+                    <th>Name</th>
+                    <th>Phoneno</th>
+                    <th>Email</th>
+                    <th>Reg No</th>
+                    <th>Department</th>
+                    <th>Course</th>
+                    <th>Year</th>
+                    <th>Attendance</th>
+                    <th>Backlog</th>
+                    <th>Position</th>
+                    <th>Status</th>
+                    <th>Actions</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for nomination in user %}
+                    <tr>
+                        <td>{{ nomination.name }}</td>
+                        <td>{{ nomination.phoneno }}</td>
+                        <td>{{ nomination.email }}</td>
+                        <td>{{ nomination.regno }}</td>
+                        <td>{{ nomination.department }}</td>
+                        <td>{{ nomination.course }}</td>
+                        <td>{{ nomination.year }}</td>
+                        <td>{{ nomination.attendance }}</td>
+                        <td>{{ nomination.backlog }}</td>
+                        <td>{{ nomination.position }}</td>
+                        <td>{{ nomination.status }}</td>
+                        <td>
+                            <a href="/deletenomination/{{ nomination.id }}">Delete</a>
+                            <form method="post" action="/update_nomination/{{ nomination.id }}/">
+                                {% csrf_token %}
+                                <input type="hidden" name="email" value="{{ nomination.email }}">
+                                
+                                <!-- Status dropdown with data-id attribute -->
+                                <select name="status" class="form-control form-control-sm" onchange="toggleReasonBox(this)" data-id="{{ nomination.id }}">
+                                    <option value="applied" {% if nomination.status == 'applied' %}selected{% endif %}>Applied</option>
+                                    <option value="approved" {% if nomination.status == 'approved' %}selected{% endif %}>Approved</option>
+                                    <option value="rejected" {% if nomination.status == 'rejected' %}selected{% endif %}>Rejected</option>
+                                </select>
+
+                                <!-- Reason box, initially hidden -->
+                                <div class="reason-box" id="reason-box-{{ nomination.id }}">
+                                    <label for="reason-{{ nomination.id }}">Reason for Rejection:</label>
+                                    <textarea name="reason" id="reason-{{ nomination.id }}" rows="3" cols="30"></textarea>
+                                </div>
+                                
+                                <button type="submit">Update Status</button>
+                            </form>
+                        </td>
+                    </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    {% else %}
+        <p>No nominations found.</p>
+    {% endif %}
+</body>
+</html>

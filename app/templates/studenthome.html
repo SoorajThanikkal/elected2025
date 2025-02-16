@@ -1,0 +1,255 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <title>ELECTED-A COLLEGE VOTING PORTAL</title>
+    <meta content="width=device-width, initial-scale=1.0" name="viewport">
+    <meta content="Free HTML Templates" name="keywords">
+    <meta content="Free HTML Templates" name="description">
+
+    <!-- Favicon -->
+    <link href="{% static 'img/favicon.ico' %}" rel="icon">
+
+    <!-- Google Web Fonts -->
+    <link rel="preconnect" href="https://fonts.gstatic.com">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet"> 
+
+    <!-- Font Awesome -->
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.10.0/css/all.min.css" rel="stylesheet">
+
+    <!-- Libraries Stylesheet -->
+    <link href="{% static 'lib/owlcarousel/assets/owl.carousel.min.css'%}" rel="stylesheet">
+
+    <!-- Customized Bootstrap Stylesheet -->
+    <link href="{% static 'css/style.css' %}" rel="stylesheet">
+</head>
+
+<body>
+    <!-- Topbar Start -->
+    
+    <!-- Topbar End -->
+
+
+    <!-- Navbar Start -->
+    <div class="container-fluid">
+        <div class="row border-top px-xl-5">
+            <div class="col-lg-3 d-none d-lg-block">
+                <a href="" class="text-decoration-none">
+                    <h1 class="m-0"><span class="text-primary">ELECT</span>-ED</h1>
+                </a>
+                
+                
+            </div>
+            <div class="col-lg-9">
+                <nav class="navbar navbar-expand-lg bg-light navbar-light py-3 py-lg-0 px-0">
+                    <a href="" class="text-decoration-none d-block d-lg-none">
+                        <h1 class="m-0"><span class="text-primary">ELECT</span>-ED</h1>
+                    </a>
+                    <button type="button" class="navbar-toggler" data-toggle="collapse" data-target="#navbarCollapse">
+                        <span class="navbar-toggler-icon"></span>
+                    </button>
+                    <div class="collapse navbar-collapse justify-content-between" id="navbarCollapse">
+                        <div class="navbar-nav py-0">
+                            <a href="/candidatereg/" class="nav-item nav-link active">Nomination</a>
+                            <a href="/candidateview/" class="nav-item nav-link">Candidates</a>
+                            <a href="/results/" class="nav-item nav-link">Result</a>
+                            <a href="/sdisplay_posts/" class="nav-item nav-link">Campaign</a>
+                            <a href="/prediction/" class="nav-item nav-link">Comparison</a>
+                            <a href="/vote/" class="nav-item nav-link">Vote</a>
+                            <a href="teacher.html" class="nav-item nav-link">Message</a>
+                            <a href="/profile/" class="nav-item nav-link">Profile</a>
+                            
+                        </div>
+                        <a class="btn btn-primary py-2 px-4 ml-auto d-none d-lg-block" href="/logout/">LOG OUT</a>
+                    </div>
+                </nav>
+            </div>
+        </div>
+    </div>
+    <!-- Navbar End -->
+
+
+    <!-- Carousel Start -->
+    <div class="container-fluid p-0 pb-5 mb-5">
+        
+        <div id="header-carousel" class="carousel slide carousel-fade" data-ride="carousel">
+            <ol class="carousel-indicators">
+                
+                <li data-target="#header-carousel" data-slide-to="0" class="active"></li>
+                <li data-target="#header-carousel" data-slide-to="1"></li>
+                <li data-target="#header-carousel" data-slide-to="2"></li>
+                
+            </ol>
+            
+            <div class="carousel-inner">
+                
+                <div class="carousel-item active" style="min-height: 300px;">
+                    <img class="position-relative w-100" src="{% static 'img/carousel-1.jpg' %}" style="min-height: 300px; object-fit: cover;">
+                    
+                    <div class="carousel-caption d-flex align-items-center justify-content-center">
+                        <div class="fixed bottom-4 left-4 p-4 max-w-xs">
+                            <div class="shadow-lg rounded-lg p-4 border border-white">
+                                <h2 class="text-lg font-bold mb-2 text-white">Notifications</h2>
+                                <li class="font-medium text-white">
+                                    Welcome! Stay tuned for updates. 🚀
+                                    <a href="/display_posts/" class="nav-item nav-link text-white underline">Posts</a>
+                                    <tbody>
+                                        {% for notification in datas %}
+                                        <tr>
+                                            <td>{{ notification.title }}</td>
+                                            <td>{{ notification.description }}</td><br>
+                                        </tr>
+                                        {% endfor %}
+                                    </tbody>
+                                </li>
+                                <ul id="notification-list" class="space-y-2 text-white">
+                                    <!-- Notifications will appear here -->
+                                </ul>
+                            </div>
+                        </div>
+                        
+                        <div class="p-5" style="width: 100%; max-width: 900px;">
+                            
+                            <h5 class="text-white text-uppercase mb-md-3"></h5>
+                            <h1 class="display-3 text-white mb-md-4">Step Up to lead in the union election</h1>
+                            
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="carousel-item" style="min-height: 300px;">
+                    <img class="position-relative w-100" src="{% static 'img/carousel-2.jpg' %}" style="min-height: 300px; object-fit: cover;">
+                    <div class="carousel-caption d-flex align-items-center justify-content-center">
+                        <div class="p-5" style="width: 100%; max-width: 900px;">
+                            <h5 class="text-white text-uppercase mb-md-3"></h5>
+                            <h1 class="display-3 text-white mb-md-4">Vote Now and shape the Future</h1>
+                            
+                            
+                        </div>
+                    </div>
+                </div>
+                <div class="carousel-item" style="min-height: 300px;">
+                    <img class="position-relative w-100" src="{% static 'img/carousel-3.jpg' %}" style="min-height: 300px; object-fit: cover;">
+                    <div class="carousel-caption d-flex align-items-center justify-content-center">
+                        <div class="p-5" style="width: 100%; max-width: 900px;">
+                            <h5 class="text-white text-uppercase mb-md-3"></h5>
+                            <h1 class="display-3 text-white mb-md-4">Check out the Victorious Candidates now!</h1>
+                            
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <!-- Carousel End -->
+    {% comment %} <div class="fixed bottom-4 left-4 bg-white shadow-lg rounded-lg p-4 max-w-xs">
+        <h2 class="text-lg font-bold mb-2">Notifications</h2>
+        <li class="font-medium">
+            Welcome! Stay tuned for updates. 🚀
+            <a href="/display_posts/" class="nav-item nav-link">Posts</a>
+        </li>
+        <ul id="notification-list" class="space-y-2">
+            
+
+            <!-- Notifications will appear here -->
+        </ul>
+    </div> {% endcomment %}
+    
+    <script>
+        function fetchNotifications() {
+            fetch('/notifications/') // Django view for notifications
+                .then(response => response.json())
+                .then(data => {
+                    const notificationList = document.getElementById('notification-list');
+                    notificationList.innerHTML = ""; // Clear old notifications
+                    
+                    data.forEach(notification => {
+                        const listItem = document.createElement('li');
+                        listItem.textContent = notification.message;
+                        listItem.className = "bg-gray-100 p-2 rounded-md shadow-sm"; // Tailwind styles
+                        notificationList.appendChild(listItem);
+                    });
+                })
+                .catch(err => console.error("Error fetching notifications:", err));
+        }
+    
+        setInterval(fetchNotifications, 5000); // Refresh every 5 seconds
+        fetchNotifications(); // Load notifications when the page loads
+    </script>
+
+    <!-- About Start -->
+    <div class="container-fluid py-5">
+        <div class="container py-5">
+            <div class="row align-items-center">
+                <div class="col-lg-5">
+                    <img class="img-fluid rounded mb-4 mb-lg-0" src="{% static 'img/about.jpg' %}" alt="">
+                </div>
+                <div class="col-lg-7">
+                    <div class="text-left mb-4">
+                        <h5 class="text-primary text-uppercase mb-3" style="letter-spacing: 5px;">About Us</h5>
+                        <h1>Innovative Way To Learn</h1>
+                    </div>
+                    <p>Vimala College is a premier educational institution offering quality education and fostering the holistic development of students. With a legacy of academic excellence and a strong commitment to social values, Vimala College has been empowering students to become responsible citizens and leaders of tomorrow. Our diverse programs and vibrant campus life ensure a well-rounded experience for all students. Join us in creating a better future</p>
+                    <a href="" class="btn btn-primary py-md-2 px-md-4 font-weight-semi-bold mt-2">Learn More</a>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- About End -->
+
+
+    <!-- Category Start -->
+    <!-- Notification Section -->
+    
+    
+
+    
+    <div class="container-fluid bg-dark text-white border-top py-4 px-sm-3 px-md-5" style="border-color: rgba(256, 256, 256, .1) !important;">
+        <div class="row">
+            <div class="col-lg-6 text-center text-md-left mb-3 mb-md-0">
+                <p class="m-0 text-white">&copy; <a href="#">Domain Name</a>. All Rights Reserved. Designed by <a href="https://htmlcodex.com">HTML Codex</a>
+                </p>
+            </div>
+            <div class="col-lg-6 text-center text-md-right">
+                <ul class="nav d-inline-flex">
+                    <li class="nav-item">
+                        <a class="nav-link text-white py-0" href="#">Privacy</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link text-white py-0" href="#">Terms</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link text-white py-0" href="#">FAQs</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link text-white py-0" href="#">Help</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </div>
+    <!-- Footer End -->
+
+
+    <!-- Back to Top -->
+    <a href="#" class="btn btn-lg btn-primary btn-lg-square back-to-top"><i class="fa fa-angle-double-up"></i></a>
+
+
+    <!-- JavaScript Libraries -->
+    <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.bundle.min.js"></script>
+    <script src="lib/easing/easing.min.js"></script>
+    <script src="lib/owlcarousel/owl.carousel.min.js"></script>
+
+    <!-- Contact Javascript File -->
+    <script src="mail/jqBootstrapValidation.min.js"></script>
+    <script src="mail/contact.js"></script>
+
+    <!-- Template Javascript -->
+    <script src="{% static 'js/main.js' %}"></script>
+</body>
+
+</html>

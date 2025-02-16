@@ -1,0 +1,247 @@
+{% load static %}
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>College Voting Portal</title>
+
+    <!-- Styles for both sections -->
+    <style>
+        /* General Body Styles */
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f9f9f9; /* Light grayish white background */
+            color: #333;
+            height: 100%; /* Full height for the body */
+            overflow-x: hidden; /* Prevent horizontal scrolling */
+        }
+
+        /* Header Styles */
+        header {
+            background-color:#FF6600; /* Strong Red for the header */
+            color: white;
+            padding: 1.5rem 2rem;
+            text-align: center;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            flex-wrap: wrap;
+            height: 69px;
+        }
+
+        header img {
+            max-height: 120px;
+            width: auto;
+        }
+
+        header h1 {
+            margin: 0;
+            font-size: 2.5rem;
+            flex-grow: 1;
+            text-align: left;
+        }
+
+        nav ul {
+            list-style-type: none;
+            padding: 0;
+            margin: 0;
+            display: flex;
+            gap: 20px;
+        }
+
+        nav ul li {
+            display: inline;
+        }
+
+        nav ul li a {
+            color: white;
+            text-decoration: none;
+            font-size: 1.1rem;
+            padding: 0.5rem;
+        }
+
+        nav ul li a:hover {
+            background-color:#FF6600;
+            border-radius: 5px;
+        }
+
+        /* Hero Section Styles */
+        section.hero {
+            background-image: url('https://wallpaperaccess.com/full/4475127.jpg');
+            background-size: cover; /* Ensure the background image covers the full section */
+            background-position: center;
+            background-attachment: fixed;
+            color: #dbae0b; /* White text for better contrast */
+            text-align: center;
+            padding: 0; /* Remove padding to ensure the image fills the entire space */
+            height: 100vh; /* Make the hero section take full viewport height */
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            position: relative; /* Required for positioning the overlay */
+        }
+
+        /* Blurred Overlay */
+        section.hero::before {
+            content: "";
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(0, 0, 0, 0.2); /* Semi-transparent overlay */
+            backdrop-filter: blur(4px); /* Apply blur effect */
+            z-index: 0; /* Place the overlay behind the text */
+        }
+
+        section.hero h2 {
+            font-size: 3rem;
+            margin-bottom: 1rem;
+            color: hsl(60, 14%, 97%); /* White text */
+            text-shadow: 2px 2px 6px rgba(0, 0, 0, 0.6); /* Shadow effect for better readability */
+            z-index: 1; /* Make sure the text stays above the overlay */
+        }
+
+        section.hero p {
+            font-size: 1.5rem;
+            color: #ffffff; /* Light grayish text for readability */
+            margin-bottom: 2rem;
+            text-shadow: 2px 2px 6px rgba(0, 0, 0, 0.6); /* Shadow effect for readability */
+            z-index: 1; /* Make sure the text stays above the overlay */
+        }
+
+        /* About Section Styles */
+        section.about {
+            background-color: #ffffff; /* White background */
+            padding: 4rem 2rem;
+            text-align: center;
+            border-bottom: 2px solid #FF6600;
+        }
+
+        section.about h2 {
+            font-size: 2.5rem;
+            color: #FF6600; /* Red color for the heading */
+            margin-bottom: 1.5rem;
+        }
+
+        section.about p {
+            font-size: 1.2rem;
+            color: #666666; /* Dark gray for text */
+            line-height: 1.8;
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        /* Dropdown Menu Styles */
+        .dropdown {
+            display: none;
+            position: absolute;
+            background-color: hsl(0, 0%, 6%);
+            box-shadow: 0 2px 10px #fff;
+            z-index: 1;
+            margin-top: 5px; /* Space below the button */
+        }
+
+        #topnav li {
+            position: relative;
+            display: inline-block;
+        }
+
+        #topnav li:hover .dropdown {
+            display: block;
+        }
+
+        .dropdown li {
+            display: block;
+            margin: 0;
+        }
+
+        .dropdown a {
+            padding: 10px 20px;
+            display: block;
+            white-space: nowrap;
+            color: #f7f2f2;
+        }
+
+        .dropdown a:hover {
+            background-color: #13389c;
+        }
+
+        /* Footer Styles */
+        footer {
+            background-color: #FF6600;
+            color: white;
+            text-align: center;
+            padding: 1rem;
+            position: relative;
+        }
+
+        footer p {
+            margin: 0;
+        }
+
+        footer a {
+            color: #ffffff;
+            text-decoration: none;
+            padding: 0.2rem;
+        }
+
+        footer a:hover {
+            text-decoration: underline;
+        }
+    </style>
+</head>
+
+<body>
+
+    <!-- Header Section -->
+    <header>
+        <img src="https://th.bing.com/th/id/R.c2fe342f207298254731ba5f1f9e2a6c?rik=pPfpJNlyNTTfQA&riu=http%3a%2f%2fvidyarupa.org%2fimages%2fvimalacollege.png&ehk=F%2bGJ34DLWe%2bOM%2f6Qk2Iux72mCE2%2f9rrIggyBpzT3IdU%3d&risl=&pid=ImgRaw&r=0" alt="Vimala College Logo">
+        <h1>ELECT-ED</h1>
+        <h3></h3>
+        <nav>
+            <ul id="topnav">
+                <li>
+                    <a href="#">Register</a>
+                    <ul class="dropdown">
+                        <li><a href="/reg/">Student</a></li>
+                        <li><a href="/facultyreg/">Faculty</a></li>
+                    </ul>
+                </li>
+                <li>
+                    <a href="#">Login</a>
+                    <ul class="dropdown">
+                        <li><a href="/studentlogin/">Student</a></li>
+                        <li><a href="/facultylogin/">Faculty</a></li>
+                        <li><a href="/candidatelogin/">Candidate</a></li>
+                        <li><a href="/adminlogin/">Admin</a></li>
+                    </ul>
+                    <li><a href="/adminlogin/">      </a></li>
+                </li>
+            </ul>
+        </nav>
+    </header>
+
+    <!-- Hero Section -->
+    <section class="hero">
+        <h2>Welcome to the College Voting Portal</h2>
+        <p>Make your voice heard by casting your vote for the upcoming college elections!</p>
+    </section>
+
+    <!-- About Section -->
+    <section class="about">
+        <h2>About the College</h2>
+        <p>Vimala College is a premier educational institution offering quality education and fostering the holistic development of students. With a legacy of academic excellence and a strong commitment to social values, Vimala College has been empowering students to become responsible citizens and leaders of tomorrow. Our diverse programs and vibrant campus life ensure a well-rounded experience for all students. Join us in creating a better future!</p>
+    </section>
+
+    <!-- Footer Section -->
+    <footer>
+        <p>&copy; 2024 College Voting Portal | <a href="#">Privacy Policy</a> | <a href="#">Terms & Conditions</a></p>
+    </footer>
+
+</body>
+</html>

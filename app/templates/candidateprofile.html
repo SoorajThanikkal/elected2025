@@ -1,0 +1,269 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <title>User Profile - ELECTED-A COLLEGE VOTING PORTAL</title>
+    <meta content="width=device-width, initial-scale=1.0" name="viewport">
+    <meta content="Free HTML Templates" name="keywords">
+    <meta content="Free HTML Templates" name="description">
+
+    <!-- Favicon -->
+    <link href="{% static 'img/favicon.ico' %}" rel="icon">
+
+    <!-- Google Web Fonts -->
+    <link rel="preconnect" href="https://fonts.gstatic.com">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
+
+    <!-- Font Awesome -->
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.10.0/css/all.min.css" rel="stylesheet">
+
+    <!-- Libraries Stylesheet -->
+    <link href="{% static 'lib/owlcarousel/assets/owl.carousel.min.css' %}" rel="stylesheet">
+
+    <!-- Customized Bootstrap Stylesheet -->
+    <link href="{% static 'css/style.css' %}" rel="stylesheet">
+
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f5f5f5;
+            margin: 0;
+            padding: 20px;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        h1, h2 {
+            font-weight: bold;
+        }
+
+        .profile-info {
+            background-color: #fff;
+            padding: 30px;
+            border-radius: 8px;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+        }
+
+        .profile-info p {
+            font-size: 18px;
+            margin: 15px 0;
+        }
+
+        .profile-info label {
+            font-weight: bold;
+        }
+
+        .btn-edit {
+            padding: 10px 15px;
+            background-color: rgb(235, 114, 15);
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+
+        .btn-edit:hover {
+            background-color: rgb(225, 197, 12);
+        }
+
+        #edit-section {
+            display: none;
+            margin-top: 30px;
+        }
+
+        .form-group {
+            margin-bottom: 15px;
+        }
+
+        .form-group label {
+            font-weight: bold;
+        }
+
+        .form-group input {
+            width: 90%;
+            padding: 10px;
+            border-radius: 5px;
+            border: 1px solid #ccc;
+        }
+
+        .form-group button {
+            background-color: rgb(208, 135, 10);
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+
+        .form-group button:hover {
+            background-color: rgb(229, 144, 25);
+        }
+
+        .navbar {
+            background-color: #f8f9fa;
+            padding: 15px;
+        }
+
+        .navbar a {
+            color: #555;
+            text-decoration: none;
+            padding: 10px;
+            margin-right: 15px;
+        }
+
+        .navbar a:hover {
+            color: #007bff;
+        }
+
+        .header-buttons {
+            display: flex;
+            justify-content: flex-end;
+            gap: 10px;
+            margin-right: 20px;
+            margin-left: 25px;
+            padding-left: 1100px;
+            margin-top: -10px;
+        }
+
+        .header-buttons button {
+            background-color: orange;
+            color: white;
+            border: none;
+            cursor: pointer;
+            padding: 10px 20px;
+            font-weight: bold;
+            border-radius: 5px;
+            transition: background-color 0.3s ease;
+        }
+
+        .header-buttons button:first-child {
+            margin-right: 10px;
+        }
+
+        .avatar-img {
+            width: 150px;
+            height: 150px;
+            border-radius: 50%;
+            object-fit: cover;
+            border: 2px solid #ddd;
+        }
+        button {
+    padding: 10px 15px;
+    background-color: #d8941e;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    margin-top: 10px;
+}
+    </style>
+</head>
+
+<body>
+    <!-- Navbar Start -->
+    <div class="container-fluid">
+        <div class="col-lg-3 d-none d-lg-block">
+            <a href="/" class="text-decoration-none">
+                <h1 class="m-0"><span class="text-primary">ELECT</span>-ED</h1>
+            </a>
+        </div>
+        <div class="header-buttons">
+            <a class="btn btn-primary py-2 px-4 d-none d-lg-block" href="/candidatehome/">HOME</a>
+            <a class="btn btn-primary py-2 px-4 d-none d-lg-block" href="/logout/">LOG OUT</a>
+        </div>
+    </div>
+    <!-- Navbar End -->
+
+    <div class="container">
+        <div class="profile-info">
+            <div class="avatar">
+                {% if user.avatar %}
+                    <img class="avatar-img" src="{{ user.avatar.url }}" alt="Candidate Avatar">
+                {% else %}
+                    <p>No image</p>
+                {% endif %}
+            </div>
+            <h2>Your Information</h2>
+            <p><strong>Name:</strong> {{ user.name }}</p>
+            <p><strong>Candidate ID:</strong> {{ user.candidateid }}</p>
+            
+            <p><strong>Department:</strong> {{ user.department }}</p>
+            <p><strong>Course:</strong> {{ user.course }}</p>
+
+            <h3>Policies and Platforms</h3>
+            <ul>
+                <li><strong>Policy 1:</strong> {{ user.policy1 }}</li>
+                <li><strong>Policy 2:</strong> {{ user.policy2 }}</li>
+                <li><strong>Policy 3:</strong> {{ user.policy3 }}</li>
+            </ul>
+
+            <button onclick="toggleEdit()">Edit Profile</button>
+        </div>
+
+        <div id="edit-section">
+            <h2>Edit Profile</h2>
+            <form method="POST" action="/candidateeditprofile/" enctype="multipart/form-data">
+                {% csrf_token %}
+                <div class="form-group">
+                    <label for="avatar">Profile Picture:</label>
+                    <input type="file" id="avatar" name="avatar"><br>
+                </div>
+
+                <div class="form-group">
+                    <label for="name">Name:</label>
+                    <input type="text" id="name" name="name" value="{{ user.name }}">
+                </div>
+
+                
+
+                <div class="form-group">
+                    <label for="department">Department:</label>
+                    <input type="text" id="department" name="department" value="{{ user.department }}">
+                </div>
+
+                <div class="form-group">
+                    <label for="course">Course:</label>
+                    <input type="text" id="course" name="course" value="{{ user.course }}">
+                </div>
+
+                <div class="form-group">
+                    <label for="policy1">Policy 1:</label>
+                    <textarea id="policy1" name="policy1">{{ user.policy1 }}</textarea><br>
+                </div>
+
+                <div class="form-group">
+                    <label for="policy2">Policy 2:</label>
+                    <textarea id="policy2" name="policy2">{{ user.policy2 }}</textarea><br>
+                </div>
+
+                <div class="form-group">
+                    <label for="policy3">Policy 3:</label>
+                    <textarea id="policy3" name="policy3">{{ user.policy3 }}</textarea><br>
+                </div>
+
+                <div class="form-group">
+                    <button type="submit">Save Changes</button>
+                </div>
+            </form>
+            <button class="btn-edit" onclick="toggleEdit()">Cancel</button>
+        </div>
+    </div>
+
+    <script>
+        function toggleEdit() {
+            var editSection = document.getElementById('edit-section');
+            if (editSection.style.display === 'none' || editSection.style.display === '') {
+                editSection.style.display = 'block';
+            } else {
+                editSection.style.display = 'none';
+            }
+        }
+    </script>
+</body>
+
+</html>

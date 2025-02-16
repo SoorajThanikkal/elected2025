@@ -1,0 +1,124 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <title>Student Login - College Voting Portal</title>
+    <meta content="width=device-width, initial-scale=1.0" name="viewport">
+    <meta content="Free HTML Templates" name="keywords">
+    <meta content="Free HTML Templates" name="description">
+
+    <!-- Favicon -->
+    <link href="{% static 'img/favicon.ico' %}" rel="icon">
+
+    <!-- Google Web Fonts -->
+    <link rel="preconnect" href="https://fonts.gstatic.com">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
+
+    <!-- Font Awesome -->
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.10.0/css/all.min.css" rel="stylesheet">
+
+    <!-- Libraries Stylesheet -->
+    <link href="{% static 'lib/owlcarousel/assets/owl.carousel.min.css'%}" rel="stylesheet">
+
+    <!-- Customized Bootstrap Stylesheet -->
+    <link href="{% static 'css/style.css' %}" rel="stylesheet">
+
+    <style>
+        /* Customizing the dropdown appearance */
+        select {
+            width: 100%;
+            padding: 10px;
+            font-size: 16px;
+            border-radius: 5px;
+            border: 1px solid #ddd;
+            box-sizing: border-box;
+            background-color: #f8f9fa;
+            color: #333;
+        }
+
+        select:focus {
+            border-color: #007bff;
+            outline: none;
+            box-shadow: 0 0 5px rgba(0, 123, 255, 0.5);
+        }
+
+        /* Optional: Customizing the label for better alignment */
+        label {
+            font-size: 16px;
+            margin-bottom: 5px;
+        }
+
+        .form-container select {
+            margin-bottom: 15px;
+        }
+
+        /* Alert Styles */
+        .alert {
+            padding: 10px;
+            background-color: #f8d7da;
+            color: #721c24;
+            border-radius: 5px;
+            margin-bottom: 20px;
+        }
+
+        .alert strong {
+            font-weight: bold;
+        }
+    </style>
+</head>
+
+<body>
+
+    <!-- Login Form Section -->
+    <section class="form-container py-5">
+        <div class="container">
+            <div class="row justify-content-center">
+                <div class="col-lg-6">
+                    <!-- Login Box -->
+                    <div class="border p-4 rounded shadow">
+                        <h2 class="text-center mb-4">Student Login</h2>
+                        <form method="POST" action="{% url 'studentlogin' %}">
+                            {% csrf_token %}
+                            <fieldset>
+                                {% if messages %}
+                                    <div class="alert">
+                                        {% for message in messages %}
+                                            <p>{{ message }}</p>
+                                        {% endfor %}
+                                    </div>
+                                {% endif %}
+                                
+                                <div class="form-group">
+                                    <label for="registerno"><span class="req">* </span>Register no: </label>
+                                    <input required class="form-control" type="text" name="registerno" id="registerno" placeholder="Enter your register number" />
+                                </div>
+
+                                <div class="form-group">
+                                    <label for="password"><span class="req">* </span>Password: </label>
+                                    <input required name="password" type="password" class="form-control" minlength="4" maxlength="16" id="password" placeholder="Enter your password" />
+                                </div>
+
+                                <div class="form-group text-center">
+                                    <input class="btn btn-primary py-2 px-4" type="submit" value="Login" />
+                                </div>
+
+                                <div class="form-group text-center">
+                                    <a href="/forgotpassword/">Forgot Password?</a>
+                                </div>
+                            </fieldset>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- JavaScript Libraries -->
+    <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.bundle.min.js"></script>
+
+</body>
+
+</html>

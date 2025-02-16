@@ -1,0 +1,390 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>ELECTED-A COLLEGE VOTING PORTAL</title>
+    <meta content="width=device-width, initial-scale=1.0" name="viewport">
+    <meta content="Free HTML Templates" name="keywords">
+    <meta content="Free HTML Templates" name="description">
+
+    <!-- Favicon -->
+    <link href="{% static 'img/favicon.ico' %}" rel="icon">
+
+    <!-- Google Web Fonts -->
+    <link rel="preconnect" href="https://fonts.gstatic.com">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet"> 
+
+    <!-- Font Awesome -->
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.10.0/css/all.min.css" rel="stylesheet">
+
+    <!-- Libraries Stylesheet -->
+    <link href="{% static 'lib/owlcarousel/assets/owl.carousel.min.css'%}" rel="stylesheet">
+
+    <!-- Customized Bootstrap Stylesheet -->
+    <link href="{% static 'css/style.css' %}" rel="stylesheet">
+
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color:rgb(252, 252, 252);
+            color:rgb(221, 141, 2);
+        }
+        .container {
+            max-width: 900px;
+            margin: 50px auto;
+            padding: 20px;
+            background-color: rgb(252, 252, 251);
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgb(252, 247, 247);
+        }
+        h1 {
+            color:#201610;
+            text-align: center;
+            margin-bottom: 20px;
+        }
+        h2 {
+            color:rgb(17, 7, 70);
+            margin: 20px 0 10px;
+        }
+        .candidate-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 20px;
+        }
+        .candidate-box {
+            background-color: #e5cba7;
+            border-radius: 10px;
+            padding: 15px;
+            text-align: center;
+            box-shadow: 0 4px 6px rgb(221, 141, 2);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+        .candidate-box:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 12px rgb(244, 228, 54);
+        }
+        .candidate-box img {
+            width: 120px;
+            height: 120px;
+            border-radius: 50%;
+            margin-bottom: 15px;
+            border: 3px solid rgb(239, 235, 12);
+        }
+        .candidate-box input[type="radio"] {
+            margin-top: 10px;
+            accent-color:rgb(221, 141, 2);
+            width: 20px;
+            height: 20px;
+        }
+        .candidate-name {
+            font-size: 1.2rem;
+             margin: 10px 0;
+            color: #021d03; /* Example color: green */
+        }
+
+        button {
+            display: block;
+            width: 100%;
+            padding: 10px;
+            background-color:rgb(221, 141, 2);
+            border-radius: 5px;
+            font-size: 1.2rem;
+            cursor: pointer;
+            margin-top: 20px;
+        }
+        button:hover {
+            background-color:rgb(221, 141, 2);
+        }
+        .pagination-buttons {
+            display: flex;
+            justify-content: space-between;
+            margin-top: 20px;
+        }
+        .nota-option {
+            margin-top: 10px;
+            font-weight: bold;
+            color:rgb(221, 141, 2);
+            border: none;
+        }
+        
+        /* Navbar styles */
+        /* Navbar styles */
+.navbar {
+    background-color: #f6e1bc; /* Greyish color */
+    padding: 10px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.navbar .navbar-brand {
+    color: rgb(221, 141, 2);
+    font-size: 24px;
+    font-weight: bold;
+    text-transform: uppercase;
+}
+
+.header-buttons {
+    display: flex;
+    justify-content: flex-end; /* Aligns buttons to the right */
+}
+
+.navbar a {
+    color: #fff;
+    font-size: 18px;
+    margin: 0 10px;
+    text-decoration: none;
+    padding: 8px 20px;
+    border-radius: 5px;
+    transition: background-color 0.3s ease;
+}
+
+.navbar a:hover {
+    background-color: rgb(221, 141, 2);
+    color: white;
+}
+
+    </style>
+</head>
+<body>
+    <!-- Navbar -->
+    <div class="navbar">
+        <h1 class="m-0"><span class="text-primary">ELECT</span>-ED</h1>
+        <div class="header-buttons">
+            <a class="btn btn-primary py-2 px-4 ml-auto d-none d-lg-block" href="/studenthome/">Home</a>
+            <a class="btn btn-primary py-2 px-4 ml-auto d-none d-lg-block" href="/logout/">Log Out</a>
+          
+        </div>
+    </div>
+    
+    
+
+    <div class="col-lg-7">
+        <div class="text-center mb-4"><br><br>
+                
+            <h5 class="text-primary" style="letter-spacing: 5px; white-space: nowrap;">
+                "On this voting page, there are eight positions available:Chairperson, Vice Chairperson, General Secretary,<br>
+                 Joint Secretary, Fine Arts Secretary, Student Editor, and UUC. 
+                You can vote for one candidate per position."
+            </h5>
+        </div>
+    </div>
+    
+    
+
+    <div class="container">
+        <h1>Cast Your Vote</h1>
+       
+        <form id="ballotForm" method="POST" action="/vote_page/">
+            {% csrf_token %}
+
+            <div class="page" id="page1">
+                <h2>Chairperson</h2>
+                <div class="candidate-grid">
+                    {% for candidate in chairperson %}
+                    <div class="candidate-box">
+                        <img src="{{ candidate.avatar.url }}" alt="{{ candidate.name }}">
+                        <p class="candidate-name">{{ candidate.name }}</p>
+                        <input type="radio" name="chairperson" value="{{ candidate.candidateid }}" required>
+                        <label for="chairperson{{ candidate.id }}">Vote for {{ candidate.name }}</label>
+                    </div>
+                    {% endfor %}
+                
+
+                    <div class="candidate-box">
+                        <img src="{% static 'img/nota3.jpg' %}">
+                        <p></p>
+                     <input type="radio" name="chairperson" value="none"> NOTA
+                    </div>
+                </div>
+            </div>
+
+            <div class="page" id="page2" style="display: none;">
+                <h2>Vice Chairperson</h2>
+                <div class="candidate-grid">
+                    {% for candidate in vicechairperson %}
+                    <div class="candidate-box">
+                        <img src="{{ candidate.avatar.url }}" alt="{{ candidate.name }}">
+                        <p class="candidate-name">{{ candidate.name }}</p>
+                        <input type="radio" name="vice_chairperson" value="{{ candidate.candidateid }}" required>
+                        <label for="vicechairperson{{ candidate.id }}">Vote for {{ candidate.name }}</label>
+                    </div>
+                    {% endfor %}
+
+                        <div class="candidate-box">
+                            <img src="{% static 'img/nota2.jpg' %}">
+                            <p></p>
+                            <input type="radio" name="vice_chairperson" value="none"> NOTA
+                        </div>
+                </div>
+            </div>
+
+            <div class="page" id="page3" style="display: none;">
+                <h2>General Secretary</h2>
+                <div class="candidate-grid">
+                    {% for candidate in generalsecretary %}
+                    <div class="candidate-box">
+                        <img src="{{ candidate.avatar.url }}" alt="{{ candidate.name }}">
+                        <p class="candidate-name">{{ candidate.name }}</p>
+                        <input type="radio" name="general_secretary" value="{{ candidate.candidateid }}" required>
+                        <label for="generalsecretary{{ candidate.id }}">Vote for {{ candidate.name }}</label>
+                    </div>
+                    {% endfor %}
+                
+
+                        <div class="candidate-box">
+                            <img src="{% static 'img/nota2.jpg' %}">
+                            <p></p>
+                            <input type="radio" name="general_secretary" value="none"> NOTA
+                        </div>
+                </div>
+            </div>
+
+            <div class="page" id="page4" style="display: none;">
+                <h2>Joint Secretary</h2>
+                <div class="candidate-grid">
+                    {% for candidate in jointsecretary %}
+                    <div class="candidate-box">
+                        <img src="{{ candidate.avatar.url }}" alt="{{ candidate.name }}">
+                        <p class="candidate-name">{{ candidate.name }}</p>
+                        <input type="radio" name="joint_secretary" value="{{ candidate.candidateid }}" required>
+                        <label for="jointsecretary{{ candidate.id }}">Vote for {{ candidate.name }}</label>
+                    </div>
+                    {% endfor %}
+                
+
+                        <div class="candidate-box">
+                            <img src="{% static 'img/nota2.jpg' %}">
+                            <p></p>
+                            <input type="radio" name="joint_secretary" value="none"> NOTA
+                        </div>
+                </div>
+            </div>
+
+            <div class="page" id="page5" style="display: none;">
+                <h2>Fine Arts Secretary</h2>
+                <div class="candidate-grid">
+                    {% for candidate in finearts %}
+                    <div class="candidate-box">
+                        <img src="{{ candidate.avatar.url }}" alt="{{ candidate.name }}">
+                        <p class="candidate-name">{{ candidate.name }}</p>
+                        <input type="radio" name="fine_arts_secretary" value="{{ candidate.candidateid }}" required>
+                        <label for="finearts{{ candidate.id }}">Vote for {{ candidate.name }}</label>
+                    </div>
+                    {% endfor %}
+                
+                        <div class="candidate-box">
+                            <img src="{% static 'img/nota2.jpg' %}">
+                            <p></p>
+                            <input type="radio" name="fine_arts_secretary" value="none"> NOTA
+                        </div>
+                </div>
+            </div>
+
+            <div class="page" id="page6" style="display: none;">
+                <h2>Student Editor</h2>
+                <div class="candidate-grid">
+                    {% for candidate in studenteditor %}
+                    <div class="candidate-box">
+                        <img src="{{ candidate.avatar.url }}" alt="{{ candidate.name }}">
+                        <p class="candidate-name">{{ candidate.name }}</p>
+                        <input type="radio" name="student_editor" value="{{ candidate.candidateid }}" required>
+                        <label for="studenteditor{{ candidate.id }}">Vote for {{ candidate.name }}</label>
+                    </div>
+                    {% endfor %}
+                    
+                        <div class="candidate-box">
+                            <img src="{% static 'img/nota2.jpg' %}">
+                            <p></p>
+                            <input type="radio" name="student_editor" value="none"> NOTA
+                        </div>
+                </div>
+            </div>
+           
+
+            <div class="page" id="page7" style="display: none;">
+                <h2>UUC Representative 1</h2>
+                <div class="candidate-grid">
+                    {% for candidate in uuc1 %}
+                    <div class="candidate-box">
+                        <img src="{{ candidate.avatar.url }}" alt="{{ candidate.name }}">
+                        <p class="candidate-name">{{ candidate.name }}</p>
+                        <input type="radio" name="uuc_rep_1" value="{{ candidate.candidateid }}" required>
+                        <label for="uuc1{{ candidate.id }}">Vote for {{ candidate.name }}</label>
+                    </div>
+                    {% endfor %}
+                
+                        <div class="candidate-box">
+                            <img src="{% static 'img/nota2.jpg' %}">
+                            <p></p>
+                            <input type="radio" name="uuc_rep_1" value="none"> NOTA
+                        </div>
+                </div>
+            </div>
+
+            <div class="page" id="page8" style="display: none;">
+                <h2>UUC Representative 2</h2>
+                <div class="candidate-grid">
+                    {% for candidate in uuc2 %}
+                    <div class="candidate-box">
+                        <img src="{{ candidate.avatar.url }}" alt="{{ candidate.name }}">
+                        <p class="candidate-name">{{ candidate.name }}</p>
+                        <input type="radio" name="uuc_rep_2" value="{{ candidate.candidateid }}" required>
+                        <label for="uuc2{{ candidate.id }}">Vote for {{ candidate.name }}</label>
+                    </div>
+                    {% endfor %}
+                
+                        <div class="candidate-box">
+                            <img src="{% static 'img/nota2.jpg' %}">
+                            <p></p>
+                            <input type="radio" name="uuc_rep_2" value="none"> NOTA
+                        </div>
+                </div>
+            </div>
+
+            <div class="pagination-buttons">
+                <button type="button" id="prevBtn" disabled>Previous</button>
+                <button type="button" id="nextBtn">Next</button>
+            </div>
+
+            <button type="submit" id="submitBtn" style="display: none;">Submit Votes</button>
+        </form>
+    </div>
+
+    <script>
+        let currentPage = 1;
+        const totalPages = 8;
+
+        document.getElementById('nextBtn').addEventListener('click', function () {
+            if (currentPage < totalPages) {
+                document.getElementById(`page${currentPage}`).style.display = 'none';
+                currentPage++;
+                document.getElementById(`page${currentPage}`).style.display = 'block';
+                updateButtons();
+            }
+        });
+
+        document.getElementById('prevBtn').addEventListener('click', function () {
+            if (currentPage > 1) {
+                document.getElementById(`page${currentPage}`).style.display = 'none';
+                currentPage--;
+                document.getElementById(`page${currentPage}`).style.display = 'block';
+                updateButtons();
+            }
+        });
+
+        function updateButtons() {
+            document.getElementById('prevBtn').disabled = currentPage === 1;
+            document.getElementById('nextBtn').style.display = currentPage === totalPages ? 'none' : 'inline-block';
+            document.getElementById('submitBtn').style.display = currentPage === totalPages ? 'inline-block' : 'none';
+        }
+    </script>
+    <!-- Footer Section -->
+    <footer>
+        <p>&copy; 2024 College Voting Portal | <a href="#">Privacy Policy</a> | <a href="#">Terms & Conditions</a></p>
+    </footer>
+</body>
+</html>

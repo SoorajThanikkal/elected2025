@@ -1,0 +1,215 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Registration</title>
+    <style>
+        /* General Body Styles */
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f9f9f9;
+            color: #333;
+            height: 100%;
+            padding-top: 50px;
+        }
+
+        /* Header Styles */
+        header {
+            background-color: #d32f2f;
+            color: white;
+            padding: 1.5rem 2rem;
+            text-align: center;
+        }
+
+        header img {
+            max-height: 80px;
+            width: auto;
+        }
+
+        header h1 {
+            margin: 0;
+            font-size: 2rem;
+        }
+
+        /* Form Section Styles */
+        .container {
+            display: flex;
+            justify-content: center;
+        }
+
+        .form-container {
+            max-width: 500px;
+            width: 100%;
+            margin-top: 30px;
+            padding: 2rem;
+            background-color: #ffffff;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        }
+
+        .form-container h2 {
+            font-size: 2rem;
+            color: #d32f2f;
+            text-align: center;
+            margin-bottom: 1.5rem;
+        }
+
+        .form-group {
+            margin-bottom: 1.5rem;
+        }
+
+        .form-group label {
+            font-size: 1rem;
+            font-weight: bold;
+            display: block;
+            margin-bottom: 0.5rem;
+        }
+
+        .form-group input,
+        .form-group select {
+            width: 100%;
+            padding: 0.8rem;
+            font-size: 1rem;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            box-sizing: border-box;
+        }
+
+        .form-group input[type="checkbox"] {
+            width: auto;
+        }
+
+        .form-group input[type="submit"] {
+            background-color: #d32f2f;
+            color: white;
+            border: none;
+            padding: 0.8rem;
+            font-size: 1.1rem;
+            border-radius: 5px;
+            cursor: pointer;
+            width: 100%;
+            transition: background-color 0.3s ease;
+        }
+
+        .form-group input[type="submit"]:hover {
+            background-color: #b71c1c;
+        }
+
+        .form-group a {
+            text-decoration: none;
+            color: #d32f2f;
+            text-align: center;
+            display: block;
+            margin-top: 1rem;
+        }
+
+        .form-group a:hover {
+            text-decoration: underline;
+        }
+
+        /* Footer Styles */
+        footer {
+            background-color: #d32f2f;
+            color: white;
+            text-align: center;
+            padding: 1rem;
+            position: relative;
+        }
+
+        footer p {
+            margin: 0;
+        }
+
+        footer a {
+            color: #ffffff;
+            text-decoration: none;
+            padding: 0.2rem;
+        }
+
+        footer a:hover {
+            text-decoration: underline;
+        }
+
+        /* Custom Styles */
+        .req {
+            color: maroon;
+            font-size: 112%;
+        }
+    </style>
+</head>
+
+<body>
+
+    <!-- Header Section -->
+    <header>
+        <img src="https://th.bing.com/th/id/R.c2fe342f207298254731ba5f1f9e2a6c?rik=pPfpJNlyNTTfQA&riu=http%3a%2f%2fvidyarupa.org%2fimages%2fvimalacollege.png&ehk=F%2bGJ34DLWe%2bOM%2f6Qk2Iux72mCE2%2f9rrIggyBpzT3IdU%3d&risl=&pid=ImgRaw&r=0" alt="Vimala College Logo">
+        <h1>College Voting Portal</h1>
+    </header>
+
+    <!-- Registration Form Section -->
+    <div class="container">
+        <div class="form-container">
+            <h2>Registration</h2>
+            <form method="post" id="fileForm" role="form">
+                {% csrf_token %}
+                <fieldset>
+                    <legend class="text-center">Registration <span class="req"><small>required *</small></span></legend>
+
+                    <!-- Name -->
+                    <div class="form-group">
+                        <label for="Name"><span class="req">* </span> Name: </label>
+                        <input required type="text" name="name" id="txt" class="form-control phone" maxlength="28" placeholder="Enter your name" />
+                    </div>
+
+                    <!-- Password -->
+                    <div class="form-group">
+                        <label for="password"><span class="req">* </span> Password: </label>
+                        <input required name="password" type="password" class="form-control inputpass" minlength="4" maxlength="16" id="pass1" />
+                    </div>
+
+                    <!-- Faculty ID -->
+                    <div class="form-group">
+                        <label for="facultyid"><span class="req">* </span> Faculty Id: <small>This will be your login username</small></label>
+                        <input class="form-control" type="text" name="facultyid" id="txt" placeholder="Enter minimum 10 letters" required />
+                    </div>
+                    <div class="form-group">
+                        <label for="department"><span class="req">* </span> Phone No: </label>
+                        <input required type="number" name="phoneno" id="txt" class="form-control" maxlength="28" placeholder="Enter your department" />
+                    </div>
+                    <div class="form-group">
+                        <label for="department"><span class="req">* </span> Email: </label>
+                        <input required type="email" name="email" id="txt" class="form-control" maxlength="28" placeholder="Enter your department" />
+                    </div>
+                    <!-- Department -->
+                    <div class="form-group">
+                        <label for="department"><span class="req">* </span> Department: </label>
+                        <input required type="text" name="department" id="txt" class="form-control" maxlength="28" placeholder="Enter your department" />
+                    </div>
+
+                    <!-- Terms & Conditions -->
+                    
+
+                    <!-- Submit Button -->
+                    <div class="form-group">
+                        <input class="btn btn-success" type="submit" name="submit_reg" value="Register">
+                    </div>
+                </fieldset>
+            </form>
+        </div>
+    </div>
+
+    <!-- Footer Section -->
+    <footer>
+        <p>&copy; 2024 College Voting Portal | <a href="#">Privacy Policy</a> | <a href="#">Terms & Conditions</a></p>
+    </footer>
+
+    <script type="text/javascript">
+        document.getElementById("field_terms").setCustomValidity("Please indicate that you accept the Terms and Conditions");
+    </script>
+</body>
+
+</html>

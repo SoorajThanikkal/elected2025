@@ -1036,7 +1036,7 @@ def predict_best_candidate(request):
     data['attendance_score'] = data['attendance'].astype(float)
 
     # NLP embeddings for policy evaluation (using Sentence Transformer for policy evaluation)
-    model = SentenceTransformer('paraphrase-MiniLM-L6-v2')
+    model = SentenceTransformer('paraphrase-albert-small-v2')
     data['policy_score'] = data.apply(
         lambda row: model.encode(row['policy1'] + " " + row['policy2'] + " " + row['policy3']).mean(),
         axis=1
